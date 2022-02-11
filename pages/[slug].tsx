@@ -15,12 +15,12 @@ const Case: NextPage = ({ cases }: any): JSX.Element => {
   const { slug } = router.query;
 
   useEffect(() => {
-    cases.results.forEach((item: any, i: number) => {
+    cases?.results.forEach((item: any, i: number) => {
       if (item.uid === slug) {
         setCaseItem(cases.results[i].data);
       }
     });
-  }, [cases.results, slug, caseItem]);
+  }, [cases?.results, slug, caseItem]);
 
   const title = caseItem?.title[0].text;
   const content = caseItem?.content;
