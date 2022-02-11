@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
 import { useEffect, useState } from 'react';
 import { client } from '../services/prismic';
 import Prismic from 'prismic-javascript';
@@ -8,6 +7,8 @@ import { CaseStyled, LinkStyled, CaseMain, Footer } from '../styles/Case';
 
 import type { NextPage } from 'next';
 import type { Content } from '../types/Content';
+
+
 
 const Case: NextPage = ({ cases }: any): JSX.Element => {
   const router = useRouter();
@@ -57,25 +58,39 @@ const Case: NextPage = ({ cases }: any): JSX.Element => {
 export default Case;
 
 
-export async function getStaticPaths() {
-  return {
-    paths: [
-      { params: { slug: '/projeto-um' } },
-      { params: { slug: '/projeto-dois' } },
-      { params: { slug: '/projeto-tres' } }
-    ],
-    fallback: true,
-  };
-}
-
-export async function getStaticProps() {
+// SSR - Server Side Rendering
+export async function getServerSideProps() {
   const cases = await client.query(
     Prismic.Predicates.at('document.type', 'cases'),
     { orderings: '[document.first_publication_date desc]' }
-  );
-  return {
-    props: {
-      cases,
-    },
+    );
+    return {
+      props: {
+        cases
+      },
+    };
   };
-}
+
+  // SSG - Static Site Generation 
+  // export async function getStaticPaths() {
+  //   return {
+  //     paths: [
+  //       { params: { slug: '/projeto-um' } },
+  //       { params: { slug: '/projeto-dois' } },
+  //       { params: { slug: '/projeto-tres' } }
+  //     ],
+  //     fallback: true,
+  //   };
+  // }
+  
+  // export async function getStaticProps() {
+  //   const cases = await client.query(
+  //     Prismic.Predicates.at('document.type', 'cases'),
+  //     { orderings: '[document.first_publication_date desc]' }
+  //   );
+  //   return {
+  //     props: {
+  //       cases,
+  //     },
+  //   };
+  // }
