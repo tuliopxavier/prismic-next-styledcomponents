@@ -44,8 +44,8 @@ const Home: NextPage = ({cases}: any): JSX.Element => {
 export default Home;
 
 
-// SSR - Server Side Rendering
-export async function getServerSideProps() {
+// SSG - Static Site Generation 
+export async function getStaticProps() {
   const cases = await client.query(
       Prismic.Predicates.at('document.type', 'cases'),
       { orderings: '[document.first_publication_date desc]' }
@@ -57,8 +57,8 @@ export async function getServerSideProps() {
   };
 };
 
-// SSG - Static Site Generation 
-// export async function getStaticProps() {
+// SSR - Server Side Rendering
+// export async function getServerSideProps() {
 //   const cases = await client.query(
 //       Prismic.Predicates.at('document.type', 'cases'),
 //       { orderings: '[document.first_publication_date desc]' }

@@ -58,39 +58,39 @@ const Case: NextPage = ({ cases }: any): JSX.Element => {
 export default Case;
 
 
-// SSR - Server Side Rendering
-export async function getServerSideProps() {
+// SSG - Static Site Generation 
+export async function getStaticPaths() {
+  return {
+    paths: [
+      { params: { slug: '/projeto-um' } },
+      { params: { slug: '/projeto-dois' } },
+      { params: { slug: '/projeto-tres' } }
+    ],
+    fallback: true,
+  };
+}
+
+export async function getStaticProps() {
   const cases = await client.query(
     Prismic.Predicates.at('document.type', 'cases'),
     { orderings: '[document.first_publication_date desc]' }
-    );
-    return {
-      props: {
-        cases
-      },
-    };
+  );
+  return {
+    props: {
+      cases,
+    },
   };
+}
 
-  // SSG - Static Site Generation 
-  // export async function getStaticPaths() {
-  //   return {
-  //     paths: [
-  //       { params: { slug: '/projeto-um' } },
-  //       { params: { slug: '/projeto-dois' } },
-  //       { params: { slug: '/projeto-tres' } }
-  //     ],
-  //     fallback: true,
-  //   };
-  // }
-  
-  // export async function getStaticProps() {
-  //   const cases = await client.query(
-  //     Prismic.Predicates.at('document.type', 'cases'),
-  //     { orderings: '[document.first_publication_date desc]' }
-  //   );
-  //   return {
-  //     props: {
-  //       cases,
-  //     },
-  //   };
-  // }
+// SSR - Server Side Rendering
+// export async function getServerSideProps() {
+// const cases = await client.query(
+//   Prismic.Predicates.at('document.type', 'cases'),
+//   { orderings: '[document.first_publication_date desc]' }
+//   );
+//   return {
+//     props: {
+//       cases
+//     },
+//   };
+// };
