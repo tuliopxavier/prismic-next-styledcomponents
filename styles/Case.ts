@@ -55,7 +55,7 @@ export const LinkStyled = styled.a`
 
     transition: all .25s ease;
     mix-blend-mode: screen;
-
+    
     &:hover {
         color: #fff;
         background-color: #222;
