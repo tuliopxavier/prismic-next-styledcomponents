@@ -1,5 +1,4 @@
 /* eslint-disable @next/next/no-img-element */
-import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { client } from '../services/prismic';
 import Prismic from 'prismic-javascript';
@@ -9,18 +8,16 @@ import { CaseStyled, LinkStyled, CaseMain, Footer } from '../styles/Case';
 
 import type { NextPage } from 'next';
 import type { Content } from '../types/Content';
-import type { CaseItem } from '../types/CaseItem';
 
 const Case: NextPage = ({ cases }: any): JSX.Element => {
   const router = useRouter();
-  const [caseItem, setCaseItem] = useState(undefined as any);
+  const [caseItem, setCaseItem] = useState(null as any);
   const { slug } = router.query;
 
   useEffect(() => {
     cases.results.forEach((item: any, i: number) => {
       if (item.uid === slug) {
         setCaseItem(cases.results[i].data);
-        console.log('caseItem: ', caseItem);
       }
     });
   }, [cases.results, slug, caseItem]);
@@ -41,11 +38,11 @@ const Case: NextPage = ({ cases }: any): JSX.Element => {
               }}>
               <h1>{title}</h1>
             </div>
-            {content.map((content: Content) => {
+            {content.map((content: Content, i: number) => {
               return content.type === 'paragraph' ? (
-                <p>{content.text}</p>
+                <p key={i}>{content.text}</p>
               ) : (
-                <img src={content.url} alt='imagem do prismic' />
+                <img key={i} src={content.url} alt='imagem do prismic' />
               );
             })}
           </CaseStyled>
@@ -63,8 +60,9 @@ export default Case;
 export async function getStaticPaths() {
   return {
     paths: [
-      { params: { slug: '/cases/projeto-um' } },
-      { params: { slug: '/cases/projeto-dois' } },
+      { params: { slug: '/projeto-um' } },
+      { params: { slug: '/projeto-dois' } },
+      { params: { slug: '/projeto-tres' } }
     ],
     fallback: true,
   };

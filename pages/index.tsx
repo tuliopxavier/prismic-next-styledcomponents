@@ -16,7 +16,7 @@ const Home: NextPage = ({cases}: any): JSX.Element => {
       {
         <Main>
           {
-            cases.results.map((item: Case) => {
+            cases.results.map((item: any) => {
               return ( 
                 <Link 
                 href={`/${item.slugs[0]}`} passHref
