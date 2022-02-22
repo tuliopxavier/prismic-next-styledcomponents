@@ -17,13 +17,11 @@ https://prismic-next-styledcomponents.vercel.app/
 - Acompanhe em modo de desenvolvimento: ```yarn dev```
 
 ### Tecnologias utilizadas
--- ReactJS
--- NextJS
--- Typescript
--- NodeJS
--- Styled Components
--- Sass
--- API Rest
--- Prismic
-
-
+- ReactJS
+- NextJS
+- Typescript
+- NodeJS
+- Styled Components
+- Sass
+- API Rest
+- Prismic
